@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>quiz</module>
+        <module>ipl-stats</module>
     </modules>
 
     <properties>
