@@ -1,0 +1,189 @@
+{
+  "questions": [
+    {
+      "question": "Java has how many primitive data types?",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "8"
+      ],
+      "answer": 3,
+      "subject":"java"
+    },
+
+    {
+      "question": "What is super class for every class in java?",
+      "options": [
+        "String",
+        "Object",
+        "Math",
+        "System"
+      ],
+      "answer": 1,
+      "subject":"java"
+    },
+    {
+      "question": "Which of the following is not a valid java.lang.Object class method",
+      "options": [
+        "toString",
+        "clone",
+        "getClass",
+        "finally"
+      ],
+      "answer": 3,
+      "subject":"java"
+    },
+
+    {
+      "question": " a = 10; b = 20 ; c = 30; d=(a>b&&a>c)?a:(b>c)?b:c; what is d value ?",
+      "options": [
+        "10",
+        "20",
+        "30",
+        "40"
+      ],
+      "answer": 2,
+      "subject":"java"
+    },
+
+    {
+      "question": "What is the output of the 10 >> 1 ?",
+      "options": [
+        "10",
+        "5",
+        "20",
+        "0"
+      ],
+      "answer": 1,
+      "subject":"java"
+    },
+    {
+      "question": "Which of the following is not a valid java.lang.String class method?",
+      "options": [
+        "length",
+        "height",
+        "contact",
+        "trim"
+      ],
+      "answer": 1,
+      "subject":"java"
+    },
+    {
+      "question": "120 men consume 720 kg of rice in 30 days. In how many days can 90 men consume 270 kg",
+      "options": [
+        "18",
+        "15",
+        "16",
+        "81"
+      ],
+      "answer": 2,
+      "subject":"aptitude"
+    },
+
+    {
+      "question": " A train 400 m long passes a pole in 20 seconds. What is the speed of the train? in kmph",
+      "options": [
+        "72",
+        "62",
+        "26",
+        "27"
+      ],
+      "answer": 1,
+      "subject":"aptitude"
+    },
+    {
+      "question": "Two numbers are respectively 20% and 50% more than a third number. The ratio of the two numbers is?",
+      "options": [
+        "2 : 5",
+        "3 : 5",
+        "4 : 5",
+        "6 : 7"
+      ],
+      "answer": 3,
+      "subject":"aptitude"
+    },
+
+    {
+      "question": " a = 10; b = 20 ; c = 30; d=(a>b&&a>c)?a:(b>c)?b:c; what is d value ?",
+      "options": [
+        "10",
+        "20",
+        "30",
+        "40"
+      ],
+      "answer": 2,
+      "subject":"aptitude"
+    },
+
+    {
+      "question": "It was Sunday on Jan 1, 2006. What was the day of the week Jan 1, 2010?",
+      "options": [
+        "MONDAY",
+        "SUNDAY",
+        "SATURDAY",
+        "FRIDAY"
+      ],
+      "answer": 4,
+      "subject":"aptitude"
+    },
+    {
+      "question": "When is International Mother Language Day celebrated?",
+      "options": [
+        "Feb 21",
+        "Feb 12",
+        "Jan 20",
+        "Jan 22"
+      ],
+      "answer": 1,
+      "subject":"GK"
+    },
+
+    {
+      "question": "Name the Father of the Indian Constitution?",
+      "options": [
+        "Dr. Babu Rajendhra Prasad",
+        "Dr. B. R. Ambedkar",
+        "Mahathma Gandhi",
+        "Javaharlal Nehru"
+      ],
+      "answer": 2,
+      "subject":"GK"
+    },
+    {
+      "question": " Which day is celebrated as Environment Day?",
+      "options": [
+        "June 5",
+        "July 5",
+        "May 25",
+        "May 5"
+      ],
+      "answer": 1,
+      "subject":"GK"
+    },
+
+    {
+      "question": "Which planet is closest to the Sun?",
+      "options": [
+        "Earth",
+        "Jupitor",
+        "Moon",
+        "Mercury"
+      ],
+      "answer": 4,
+      "subject":"GK"
+    },
+
+    {
+      "question": "1024 Kilobytes is equal to..?",
+      "options": [
+        "1MB",
+        "10KB",
+        "1GB",
+        "10GB"
+      ],
+      "answer": 1,
+      "subject":"GK"
+    }
+  ]
+}
