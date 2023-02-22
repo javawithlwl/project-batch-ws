@@ -1,6 +1,7 @@
 package com.lwl.capp.playerstats;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PlayerServiceImpl implements  PlayerService{
 
@@ -12,7 +13,9 @@ public class PlayerServiceImpl implements  PlayerService{
 
   @Override
   public List<String> getPlayerNames() {
-    return null;
+    List<String> list = players.stream().map(ele -> ele.getName()).collect(Collectors.toList());
+    System.out.println("Total player count is "+list.size());
+    return list;
   }
 
   @Override
