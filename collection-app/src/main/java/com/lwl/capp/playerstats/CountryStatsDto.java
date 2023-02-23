@@ -16,4 +16,5 @@ public class CountryStatsDto {
     private double maxAmount;
     private double minAmount;
     private double totalAmount;
+
 }
