@@ -3,133 +3,129 @@ package com.lwl.capp.playerstats;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class PlayerServiceImpl implements  PlayerService{
+public class PlayerServiceImpl implements PlayerService {
 
   private List<Player> players;
   private Map<String, List<Player>> map;
 
-  public PlayerServiceImpl(){
-
-      players = CsvReaderUtil.loadDataFromCsv();
-      map = players.stream().collect(Collectors.groupingBy(Player::getTeam));
+  public PlayerServiceImpl() {
+    players = CsvReaderUtil.loadDataFromCsv();
+    map = players.stream().collect(Collectors.groupingBy(Player::getTeam));
   }
 
   @Override
   public List<String> getPlayerNames() {
     List<String> list = players.stream().map(ele -> ele.getName()).collect(Collectors.toList());
-    System.out.println("Total player count is "+list.size());
+    System.out.println("Total player count is " + list.size());
     return list;
   }
 
   @Override
   public List<String> getTeamNames() {
-    List<String> list = new ArrayList<>();
     Set<String> teamNames = players.stream().map(ele -> ele.getTeam()).collect(Collectors.toSet());
-   list.addAll(teamNames);
-
-
+    List<String> list = new ArrayList<>(teamNames);
+    System.out.println("Total team count is " + list.size());
     return list;
   }
 
   @Override
   public List<Player> getPlayerByTeam(String team) {
-
-     List<Player> player= players.stream().filter(ele->ele.getTeam().equalsIgnoreCase(team)).collect(Collectors.toList());
-    return player;
+    List<Player> players = map.get(team);
+    System.out.println("The team " + team + " has " + players.size() + " players");
+    return players;
   }
 
   @Override
   public List<Player> getPlayerByRole(String role) {
-       List<Player> player = players.stream().filter(ele->ele.getRole().equalsIgnoreCase(role)).collect(Collectors.toList());
-
+    List<Player> player = players.stream()
+        .filter(ele -> ele.getRole().equalsIgnoreCase(role))
+        .collect(Collectors.toList());
+    System.out.println("The role " + role + " has " + players.size() + " players");
     return player;
   }
 
   @Override
-  public List<TeamStatsDto> getTeamStats() {
-    return null;
-  }
-
-  @Override
-  public List<Player> getMaxPaidPlayers()
-  {
-    double maxAmount = getMaxAmount();
-     List<Player> player = players.stream().filter(ele->ele.getAmount()==maxAmount).collect(Collectors.toList());
+  public List<Player> getMaxPaidPlayers() {
+    double maxAmount = getMaxAmount(players);
+    List<Player> player = players.stream().filter(ele -> ele.getAmount() == maxAmount).collect(Collectors.toList());
+    System.out.println("Max amount is " + maxAmount + " and max paid player count is " + player.size());
     return player;
-  }
-
-  private double getMaxAmount() {
-    double maxAmount = players.get(0).getAmount();
-
-    for(int i = 1;i<players.size();i++) {
-      if(players.get(i).getAmount()>maxAmount) {
-        maxAmount = players.get(i).getAmount();
-      }
-    }
-    return maxAmount;
-
-
   }
 
   @Override
   public List<Player> getMaxPaidPlayers(String team) {
     List<Player> players = map.get(team);
-      List<Player> playersByTeam = players.stream().filter(ele->ele.getTeam().equalsIgnoreCase(team)).collect(Collectors.toList());
-      double maxAmount = getMaxAmountByTeam(playersByTeam);
-       List<Player> maxPaidPlayerByTeam = playersByTeam.stream().filter(ele->ele.getAmount()==maxAmount).collect(Collectors.toList());
-
-    return maxPaidPlayerByTeam;
-  }
-
-  private double getMaxAmountByTeam(List<Player> playersByTeam) {
-    double max = playersByTeam.get(0).getAmount();
-
-    for(Player player:playersByTeam){
-      if(player.getAmount()>max){
-        max = player.getAmount();
-      }
-
-    }
-    return max;
-
-
+    double maxAmount = getMaxAmount(players);
+    List<Player> maxPaidPlayers = players.stream()
+        .filter(ele -> ele.getAmount() == maxAmount)
+        .collect(Collectors.toList());
+    System.out.println("Team " + team + " max amount " + maxAmount + " and max paid player count  " + maxPaidPlayers.size());
+    return maxPaidPlayers;
   }
 
   @Override
   public List<Player> getMaxPaidPlayers(String team, String role) {
-
     List<Player> players = map.get(team);
-     List<Player> playersByRole = players.stream().filter(ele->ele.getRole().equalsIgnoreCase(role)).collect(Collectors.toList());
-    double maxAmount = getMaxAmountByTeamAndRole(playersByRole);
-      List<Player> maxPaidPlayers =  playersByRole.stream().filter(ele->ele.getAmount()==maxAmount).collect(Collectors.toList());
-
-
-
-
+    List<Player> playerByRoleList = players.stream().filter(p -> p.getRole().equals(role)).collect(Collectors.toList());
+    double maxAmount = getMaxAmount(playerByRoleList);
+    List<Player> maxPaidPlayers = playerByRoleList.stream()
+        .filter(ele -> ele.getAmount() == maxAmount)
+        .collect(Collectors.toList());
+    System.out.println("Team " + team + " role " + role + " max amount " + maxAmount + " and max paid player count  " + maxPaidPlayers.size());
     return maxPaidPlayers;
-  }
-  private double getMaxAmountByTeamAndRole(List<Player> playersByRole) {
-    double max = playersByRole.get(0).getAmount();
-    for (Player player : playersByRole) {
-      double amount = player.getAmount();
-      if (amount > max) {
-        max = amount;
-      }
-    }
-    return max;
   }
 
   @Override
   public List<String> getCountryNames() {
-    List<String> list = new ArrayList<>();
-    Set<String> country = players.stream().map(ele->ele.getCountry()).collect(Collectors.toSet());
-     list.addAll(country);
-
+    Set<String> country = players.stream().map(ele -> ele.getCountry()).collect(Collectors.toSet());
+    List<String> list = new ArrayList<>(country);
+    System.out.println("Country count is :" + list.size());
     return list;
   }
 
   @Override
   public List<CountryStatsDto> getPlayerCountryStats() {
+    List<String> countryList = getCountryNames();
+    List<CountryStatsDto> countryStatsList = new ArrayList<>();
+    for (String country : countryList) {
+      List<Player> playerList = players.stream().filter(p -> p.getCountry().equals(country)).collect(Collectors.toList());
+      double maxAmount = getMaxAmount(playerList);
+      double minAmount = getMinAmount(playerList);
+      double totalAmount = playerList.stream().mapToDouble(p -> p.getAmount()).sum();
+      int count = playerList.size();
+      CountryStatsDto obj = CountryStatsDto.builder()
+          .maxAmount(maxAmount)
+          .minAmount(minAmount)
+          .totalAmount(totalAmount)
+          .country(country)
+          .playerCount(count)
+          .build();
+      countryStatsList.add(obj);
+    }
+    return countryStatsList;
+  }
+  @Override
+  public List<TeamStatsDto> getTeamStats() {
     return null;
+  }
+
+  private double getMinAmount(List<Player> playerList) {
+    double minAmount = playerList.get(0).getAmount();
+    for (int i = 1; i < playerList.size(); i++) {
+      if (playerList.get(i).getAmount() < minAmount) {
+        minAmount = playerList.get(i).getAmount();
+      }
+    }
+    return minAmount;
+  }
+
+  private double getMaxAmount(List<Player> playerList) {
+    double maxAmount = playerList.get(0).getAmount();
+    for (int i = 1; i < playerList.size(); i++) {
+      if (playerList.get(i).getAmount() > maxAmount) {
+        maxAmount = playerList.get(i).getAmount();
+      }
+    }
+    return maxAmount;
   }
 }
