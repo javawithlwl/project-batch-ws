@@ -19,11 +19,14 @@ public class PlayerManager {
 //       System.out.println(player1);
 //      List<String> country =  service.getCountryNames();
 //      System.out.println(country);
-      List<Player> maxPaidPlayers = service.getMaxPaidPlayers("DC","Batsman");
-      System.out.println(maxPaidPlayers);
+//      List<Player> player2 = service.getMaxPaidPlayers("MI","Batsman");
+//      System.out.println(player2);
 //     List<Player> player3= service.getMaxPaidPlayers("PBKS");
 //     System.out.println(player3);
-      System.out.println(service.getPlayerCountryStats());
+       List<TeamStatsDto> player4 =  service.getTeamStats();
+       System.out.println(player4);
+
+
     }
 
 

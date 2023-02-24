@@ -106,7 +106,22 @@ public class PlayerServiceImpl implements PlayerService {
   }
   @Override
   public List<TeamStatsDto> getTeamStats() {
-    return null;
+    List<String> teamList = getTeamNames();
+    List<TeamStatsDto> teamStatsList = new ArrayList<>();
+    for(String teams :teamList){
+      List<Player> list =  players.stream().filter(t->t.getTeam().equalsIgnoreCase(teams)).collect(Collectors.toList());
+      String team = teams;
+      int playerCount = list.size();
+      double totalAmount =list.stream().mapToDouble(p -> p.getAmount()).sum();
+      TeamStatsDto obj = TeamStatsDto.builder()
+              .team(team)
+              .playerCount(playerCount)
+              .totalAmount(totalAmount)
+              .build();
+      teamStatsList.add(obj);
+
+    }
+    return teamStatsList;
   }
 
   private double getMinAmount(List<Player> playerList) {
