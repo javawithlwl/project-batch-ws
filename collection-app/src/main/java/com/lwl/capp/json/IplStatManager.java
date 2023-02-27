@@ -20,40 +20,29 @@ import com.lwl.capp.playerstats.Player;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Builder
-@ToString
 class PlayerInfo {
 	private String name;
 	private String country;
 	private double amount;
 }
 
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Builder
-@ToString
 class RoleInfo {
 	private String rolename;
 	private List<PlayerInfo> players1;
 }
 
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Builder
-@ToString
 class TeamsInfo {
 	private String team;
 	private List<RoleInfo> roles;
