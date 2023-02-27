@@ -1,0 +1,63 @@
+approach:-
+*********
+class PlayerInfo {
+	private String name;
+	private String country;
+	private double amount;
+}
+
+class RoleInfo {
+	private String role;
+	private List<PlayerInfo> players1;
+}
+
+class TeamsInfo {
+	private String team;
+	private List<RoleInfo> roles;
+}
+
+class JsonEx {
+	private List<TeamsInfo> teams;
+}
+
+
+public class IplStatManager {
+
+	public static void main(String[] args) {
+
+		PlayerInfo pi = new PlayerInfo("mmk", "ind", 50000.00);
+		List<PlayerInfo> pls = new ArrayList<>();
+		pls.add(pi);
+		RoleInfo ri = new RoleInfo("batsmen", pls);
+		List<RoleInfo> rols = new ArrayList<>();
+		rols.add(ri);
+		TeamsInfo ti = new TeamsInfo("rcb", rols);
+		List<TeamsInfo> tms = new ArrayList<>();
+		tms.add(ti);
+		JsonEx jex = new JsonEx(tms);
+		ObjectMapper obMapper = new ObjectMapper();
+		obMapper.enable(SerializationFeature.INDENT_OUTPUT);
+		try {
+			System.out.println(obMapper.writeValueAsString(jex));
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+}
+result:-
+******
+{
+  "teams" : [ {
+    "team" : "rcb",
+    "roles" : [ {
+      "role" : "batsmen",
+      "players1" : [ {
+        "name" : "mmk",
+        "country" : "ind",
+        "amount" : 50000.0
+      } ]
+    } ]
+  } ]
+}
