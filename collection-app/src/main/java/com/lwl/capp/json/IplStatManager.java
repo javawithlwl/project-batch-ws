@@ -18,7 +18,6 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 class PlayerInfo {
 	private String name;
 	private String country;
@@ -26,17 +25,20 @@ class PlayerInfo {
 }
 
 @Data
-@Builder
 class RoleInfo {
 	private String rolename;
 	private List<PlayerInfo> players1;
 }
 
 @Data
-@Builder
 class TeamsInfo {
 	private String team;
 	private List<RoleInfo> roles;
+}
+
+@Data
+class Teams{
+	private List<TeamsInfo> teams;
 }
 
 public class IplStatManager {
@@ -44,39 +46,36 @@ public class IplStatManager {
 	public static void main(String[] args) throws IOException {
 		List<Player> players = CsvReaderUtil.loadDataFromCsv();
 		Set<String> teamsnames = players.stream().map(p -> p.getTeam()).collect(Collectors.toSet());
-		Set<String> rolenames = players.stream().map(p -> p.getRole()).collect(Collectors.toSet());
-		Map<String, List<TeamsInfo>> play = new HashMap<>();
-		List<TeamsInfo> teamsList = new ArrayList<>();
-		List<RoleInfo> rolesList = new ArrayList<>();
-		List<PlayerInfo> playerList = new ArrayList<>();
-		List<Player> playerByTeam = new ArrayList<>();
-		List<Player> playerByRole = new ArrayList<>();
+		Map<String, List<Player>> play = players.stream().collect(Collectors.groupingBy(Player::getTeam));
+		List<TeamsInfo> teams1 = new ArrayList<>();
 		for (String tem : teamsnames) {
-			playerByTeam = players.stream().filter(pla->pla.getTeam().equals(tem)).collect(Collectors.toList());
-			RoleInfo roleInfo = null;
-			for(String rol: rolenames) {
-				playerByRole = playerByTeam.stream().filter(pla->pla.getRole().equals(rol)).collect(Collectors.toList());
-				roleInfo = RoleInfo.builder()
-						.rolename(rol).players1(playerList).build();
-				rolesList.add(roleInfo);
-				PlayerInfo playerInfo = null;
-				for (Player player : playerByRole) {
-					playerInfo = PlayerInfo.builder()
-							.name(player.getName())
-							.country(player.getCountry())
-							.amount(player.getAmount())
-							.build();
-					playerList.add(playerInfo);
+			List<Player> teamPlayers = play.get(tem);
+			Map<String, List<Player>> roleplayerMap = teamPlayers.stream().collect(Collectors.groupingBy(Player::getRole));
+			List<RoleInfo> roleInfoList = new ArrayList<>();
+			roleplayerMap.forEach((rolen,roleplayers)->{
+				RoleInfo obj = new RoleInfo();
+				obj.setRolename(rolen);
+				List<PlayerInfo> playerInfoLIst = new ArrayList<>();
+				for(Player p : roleplayers) {
+					PlayerInfo playerInfo = new PlayerInfo();
+					playerInfo.setName(p.getName());
+					playerInfo.setCountry(p.getCountry());
+					playerInfo.setAmount(p.getAmount());
+					playerInfoLIst.add(playerInfo);
 				}
-			}
-			TeamsInfo teamsInfo = TeamsInfo.builder()
-					.team(tem).roles(rolesList).build();
-			teamsList.add(teamsInfo);
+				obj.setPlayers1(playerInfoLIst);
+				roleInfoList.add(obj);
+			});
+			TeamsInfo teamsInfo = new TeamsInfo();
+			teamsInfo.setTeam(tem);
+			teamsInfo.setRoles(roleInfoList);
+			teams1.add(teamsInfo);
 		}
-		play.put("teams", teamsList);
+		Teams teams = new Teams();
+		teams.setTeams(teams1);
 		ObjectMapper objectMapper = new ObjectMapper();
-	    objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-	    objectMapper.writeValue(new File("players11.json"),play);
-		
-	}
+		objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+		System.out.println(objectMapper.writeValueAsString(teams));
+		objectMapper.writeValue(new File("player12.json"), teams);
+}
 }
