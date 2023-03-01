@@ -71,7 +71,9 @@ public class ContactManager {
 				impl.exportContact(FileType.valueOf(type.toUpperCase()));
 				break;
 			case 8:
-				impl.importContact(null, null);
+				System.out.println("enter the type of file to import contact(csv/json) :");
+				String type1 = s.next();
+				impl.importContact(FileType.valueOf(type1.toUpperCase()), null);
 				break;
 			default:
 				System.out.println("enter valid response");

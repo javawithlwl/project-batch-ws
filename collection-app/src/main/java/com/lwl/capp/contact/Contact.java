@@ -1,16 +1,10 @@
 package com.lwl.capp.contact;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Setter
-@Getter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@ToString
 public class Contact {
 	private int id;
 	private String name;

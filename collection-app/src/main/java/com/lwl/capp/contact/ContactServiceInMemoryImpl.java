@@ -2,13 +2,12 @@ package com.lwl.capp.contact;
 
 import java.nio.file.Path;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -67,16 +66,15 @@ public class ContactServiceInMemoryImpl implements ContactServices {
 		else
 		utils.writeContactCSV(contactList);
 	}
-
 	@Override
 	public void importContact(FileType type, Path path) {
-		System.out.println("not implemented");
+	System.out.println("not implemented");
 	}
 
 	public Map<Integer, String> showMenu() {
 		Map<Integer, String> map = new HashMap<>();
-		map.put(1, new String("add contact"));
-		map.put(2, new String("get all contacts"));
+		map.put(1, "add contact");
+		map.put(2, "get all contacts");
 		map.put(3, "search by name");
 		map.put(4, "update contact");
 		map.put(5, "delete contact by id");
@@ -88,8 +86,8 @@ public class ContactServiceInMemoryImpl implements ContactServices {
 
 	public Contact createContact() throws ParseException {
 		Scanner s = new Scanner(System.in);
-		System.out.print("enter id:");
-		int id = s.nextInt();
+		Random r = new Random();
+		int id = r.nextInt();
 		System.out.print("enter name :");
 		String name = s.next();
 		System.out.print("enter email :");
