@@ -13,6 +13,7 @@
         <module>ipl-stats</module>
         <module>collection-app</module>
         <module>sample</module>
+        <module>learning-jdbc</module>
     </modules>
 
     <properties>
