@@ -1,6 +1,7 @@
 package com.lwl.learning.jdbc;
 
 import com.lwl.learning.jdbc.domain.Player;
+import com.lwl.learning.jdbc.dto.TeamStatDto;
 import com.lwl.learning.jdbc.service.IplStatService;
 import com.lwl.learning.jdbc.service.IplStatServiceImpl;
 
@@ -22,6 +23,8 @@ public class Manager {
     System.out.println("Players of respective country:"+playerByCountry);
     List<Player> players1 = iplStatService.topPaidPlayersFromEachTeam();
     System.out.println("Top paid players for Each Team "+players1);
+    List<TeamStatDto> teamStats = iplStatService.getTeamStats();
+    System.out.println("TeamStats:"+teamStats);
 
 
 
