@@ -25,6 +25,7 @@ public class Manager {
     System.out.println("Top paid players for Each Team "+players1);
     List<TeamStatDto> teamStats = iplStatService.getTeamStats();
     System.out.println("TeamStats:"+teamStats);
+    System.out.println("TeamStats:"+teamStats.size());
 
 
 

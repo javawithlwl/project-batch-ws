@@ -60,15 +60,13 @@ public class IplStatServiceImpl implements  IplStatService{
       try{
           con = ConnectionUtil.getConnection();
           st = con.createStatement();
-          rs = st.executeQuery("select team,max(amount),min(amount),count(team) from player group by team ");
-         // while(rs.next()) {
-              for (String team:teams) {
-                  String team1 = team;
-                  List<Player> list =  player.stream().filter(t->t.getTeam().equalsIgnoreCase(team1)).collect(Collectors.toList());
-                  double totalAmount = list.stream().mapToDouble(p -> p.getAmount()).sum();
-                  double minAmount = getMinAmount(list);
-                  double maxAmount = getMaxAmount(list);
-                  int playerCount = list.size();
+          rs = st.executeQuery("select team,max(amount)as maxAmount,min(amount) as minAmount,count(team) as playerCount,sum(amount) as totalAmount from player group by team ");
+          while(rs.next()) {
+                  double totalAmount = rs.getDouble("totalAmount");
+                  String team = rs.getString("team");
+                  double minAmount = rs.getDouble("minAmount");
+                  double maxAmount = rs.getDouble("maxAmount");
+                  int playerCount = rs.getInt("playerCount");
                   TeamStatDto teamStats = TeamStatDto.builder()
                           .team(team)
                           .minAmount(minAmount)
@@ -78,38 +76,17 @@ public class IplStatServiceImpl implements  IplStatService{
                           .build();
                   teamsList.add(teamStats);
               }
-         // }
-      }catch (SQLException e){
+
+      }
+      catch (SQLException e){
           e.printStackTrace();
 
-      }finally {
+      }
+      finally {
           ConnectionUtil.close(rs,st,con);
       }
     return teamsList;
   }
-
-    private double getMaxAmount(List<Player> player) {
-        double maxAmount = player.get(0).getAmount();
-        for (int i = 1; i < player.size(); i++) {
-            if (player.get(i).getAmount() > maxAmount) {
-                maxAmount = player.get(i).getAmount();
-            }
-        }
-        return maxAmount;
-
-    }
-
-    private double getMinAmount(List<Player> player) {
-        double minAmount = player.get(0).getAmount();
-        for (int i = 1; i < player.size(); i++) {
-            if (player.get(i).getAmount() < minAmount) {
-                minAmount = player.get(i).getAmount();
-            }
-        }
-        return minAmount;
-
-    }
-
     @Override
   public List<String> getTeamNames() {
       Connection con = null;
@@ -184,7 +161,7 @@ public class IplStatServiceImpl implements  IplStatService{
       try{
           con = ConnectionUtil.getConnection();
           st = con.createStatement();
-          rs = st.executeQuery("select id,name,country,role,team,amount from player WHERE country='India' ");
+         rs = st.executeQuery("select id,name,country,role,team,amount from player WHERE country='India' ");
           while(rs.next()){
               int id = rs.getInt("id");
               String name = rs.getString("name");
