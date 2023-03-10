@@ -13,4 +13,7 @@ public interface IplStatService {
     List<Player> getPlayerByTeam(String team);
     List<Player> getPlayerByCountry(String country);
     List<Player> topPaidPlayersFromEachTeam();
+    int addPlayers(List<Player> list);
+    void export();
+
 }

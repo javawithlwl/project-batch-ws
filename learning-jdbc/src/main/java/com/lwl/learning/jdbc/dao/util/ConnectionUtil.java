@@ -1,4 +1,4 @@
-package com.lwl.learning.jdbc;
+package com.lwl.learning.jdbc.dao.util;
 
 import java.io.IOException;
 import java.sql.*;
@@ -42,6 +42,9 @@ public final class ConnectionUtil {
       }catch (SQLException e){
           e.printStackTrace();
       }
+  }
+  public static void close(Statement st,Connection con){
+      close(null,st,con);
   }
 
 }
