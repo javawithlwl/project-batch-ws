@@ -1,8 +1,8 @@
 package com.lwl.learning.jdbc.service;
 
+import com.lwl.common.util.ConnectionUtil;
 import com.lwl.learning.jdbc.dao.IplStatDao;
 import com.lwl.learning.jdbc.dao.IplStatDaoImpl;
-import com.lwl.learning.jdbc.dao.util.ConnectionUtil;
 import com.lwl.learning.jdbc.domain.Player;
 import com.lwl.learning.jdbc.dto.TeamStatDto;
 import com.opencsv.CSVWriter;
