@@ -1,6 +1,7 @@
 package com.lwl.learning.jdbc.dao;
 
-import com.lwl.learning.jdbc.dao.util.ConnectionUtil;
+
+import com.lwl.common.util.ConnectionUtil;
 import com.lwl.learning.jdbc.dao.util.ConvertorUtil;
 import com.lwl.learning.jdbc.domain.Player;
 import com.lwl.learning.jdbc.dto.TeamStatDto;

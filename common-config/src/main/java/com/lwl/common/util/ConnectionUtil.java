@@ -1,4 +1,4 @@
-package com.lwl.learning.jdbc.dao.util;
+package com.lwl.common.util;
 
 import java.io.IOException;
 import java.sql.*;
