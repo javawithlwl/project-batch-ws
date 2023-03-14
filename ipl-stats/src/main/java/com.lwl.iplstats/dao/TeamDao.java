@@ -13,4 +13,6 @@ public interface TeamDao {
     void uploadImage(int id, File file);
     List<Team> search(String str);
     boolean deleteAll();
+    File downloadImage(int id);
+    Team selectTeam(int id);
 }
