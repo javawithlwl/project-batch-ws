@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="contactController" class="com.lwl.sc.di.xml.ContactController">
+        <property name="contactService" ref="contactService"></property>
+    </bean>
+    <bean id="contactService" class="com.lwl.sc.di.xml.ContactServiceImpl">
+        <property name="contactDao" ref="contactDao"></property>
+    </bean>
+    <bean id="contactDao" class="com.lwl.sc.di.xml.ContactDaoImpl">
+        <property name="connectionService" ref="connectionService"></property>
+    </bean>
+    <bean id="connectionService" class="com.lwl.sc.di.xml.ConnectionServiceImpl">
+        <property name="url" value="jdbc:postgresql://dpg-cg3m9b9mbg5fch5veac0-a.oregon-postgres.render.com/learning_sql_db_g8ls"></property>
+        <property name="username" value="dbuser"></property>
+        <property name="password" value="KofpfFXO00PThiZTaSRfKYPaTiCIvPcs"></property>
+    </bean>
+</beans>
