@@ -13,8 +13,9 @@ import java.nio.file.Path;
 public class AwsS3Service {
 
   private AmazonS3 s3client;
+  private static AwsS3Service awsS3Service = null;
 
-  public AwsS3Service() {
+  private AwsS3Service() {
     AWSCredentials credentials = new BasicAWSCredentials(ConnectionUtil.getValue("aws.accesskey"), ConnectionUtil.getValue("aws.secretkey"));
     AWSStaticCredentialsProvider obj = new AWSStaticCredentialsProvider(credentials);
     s3client = AmazonS3ClientBuilder.standard()
@@ -34,4 +35,15 @@ public class AwsS3Service {
     s3client.getObject(request,destinationFile);
     return destinationFile.getAbsolutePath();
   }
+
+  public static AwsS3Service getInstance(){
+
+        if(awsS3Service == null){
+            synchronized (AwsS3Service.class){
+                awsS3Service = new AwsS3Service();
+            }
+        }
+        return awsS3Service;
+  }
+
 }
