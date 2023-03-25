@@ -72,7 +72,7 @@ public class TeamDaoImpl implements TeamDao {
   @Override
   public void uploadImage(int id, File file) {
     String key = "ipl-captain-images/"+id+"_"+file.getName();
-    AwsS3Service awsS3Service = new AwsS3Service();
+    AwsS3Service awsS3Service = AwsS3Service.getInstance();
     awsS3Service.uploadFile("ipl-docs", key, file);
     System.out.println("File is uploaded into s3");
     updatePlayerImageUrl(id,key);
@@ -118,7 +118,7 @@ public class TeamDaoImpl implements TeamDao {
 
   @Override
   public File downloadImage(int id) {
-    AwsS3Service obj = new AwsS3Service();
+    AwsS3Service obj = AwsS3Service.getInstance();
     Team team = selectTeam(id);
     String path = obj.downloadImage("ipl-docs",team.getCaptainImgUrl());
     System.out.println("Image location :"+path);
